@@ -12,13 +12,6 @@ then
 
   PREFIX=${BASH_REMATCH[0]}
 
-  # PREFIX_REGEX="^$PREFIX.*$"
-  # echo "$PREFIX" "->" "$PREFIX_REGEX"
-  echo ""
-  echo "$COMMIT_MESSAGE"
-  echo "$PREFIX"
-  echo ""
-
   if [[ -n "$PREFIX" ]] && [[ $COMMIT_MESSAGE == "$PREFIX"* ]];
   then
     # already starts with ticket number!
