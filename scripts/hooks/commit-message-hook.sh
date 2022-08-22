@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# the hook passes the file name with the commit message
+COMMIT_MESSAGE="$(cat $1)"
+
 LOCAL_BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 
 if [ ! -z "$LOCAL_BRANCH_NAME" ] && [ $LOCAL_BRANCH_NAME != "HEAD" ] && [ $LOCAL_BRANCH_NAME != "main" ];
@@ -8,8 +11,20 @@ then
   [[ $LOCAL_BRANCH_NAME =~ $PREFIX_PATTERN ]]
 
   PREFIX=${BASH_REMATCH[0]}
-  
-  PREFIX_IN_COMMIT
 
-  sed -i.bak -e "1s~^~$PREFIX ~" ${$1#"$PREFIX"}
+  # PREFIX_REGEX="^$PREFIX.*$"
+  # echo "$PREFIX" "->" "$PREFIX_REGEX"
+  echo ""
+  echo "$COMMIT_MESSAGE"
+  echo "$PREFIX"
+  echo ""
+
+  if [[ -n "$PREFIX" ]] && [[ $COMMIT_MESSAGE == "$PREFIX"* ]];
+  then
+    # already starts with ticket number!
+    exit 0
+  else
+    # does not start with ticket number, add it
+    sed -i.bak -e "1s~^~$PREFIX ~" "$1"
+  fi
 fi
