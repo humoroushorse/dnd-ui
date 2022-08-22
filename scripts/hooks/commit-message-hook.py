@@ -18,5 +18,4 @@ with open(commit_msg_filepath, 'r+') as f:
 
     description = f'\n**Description**\n{original_commit_message if original_commit_message else "TODO: description"}'
 
-    print(f'{ticket_prefix}\n{jira_snippet}\n{description}\n')
     f.write(f'{ticket_prefix}: {original_commit_message}\n{jira_snippet}\n{description}\n')
