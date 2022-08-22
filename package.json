@@ -9,7 +9,8 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "lint": "lint-staged --relative"
+    "lint": "lint-staged --relative",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
@@ -52,7 +53,6 @@
     "eslint-plugin-cypress": "^2.10.3",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.1",
-    "is-ci": "^3.0.1",
     "jest": "27.5.1",
     "jest-preset-angular": "~11.1.2",
     "lint-staged": "^13.0.3",
@@ -63,15 +63,6 @@
     "ts-jest": "27.1.4",
     "ts-node": "10.9.1",
     "typescript": "~4.7.2"
-  },
-  "husky": {
-    "hooks": {
-      "post-checkout": "./scripts/hooks/branch-name-hook.sh $HUSKY_GIT_PARAMS",
-      "pre-commit": "is-ci || ./scripts/hooks/branch-name-hook.sh $HUSKY_GIT_PARAMS && npm run lint",
-      "pre-push": "is-ci || ./scripts/hooks/branch-name-hook.sh $HUSKY_GIT_PARAMS && nx build --aot true --configuration production && npm run test",
-      "prepare-commit-msg": "is-ci || ./scripts/hooks/commit-message-hook.sh $HUSKY_GIT_PARAMS",
-      "post-merge": "is-ci || ./scripts/hooks/check-npm-hook.sh $HUSKY_GIT_PARAMS"
-    }
   },
   "lint-staged": {
     "*.{js,ts}": [
