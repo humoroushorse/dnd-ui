@@ -15,5 +15,4 @@ with open(commit_msg_filepath, 'r+') as f:
 
     new_commit_message = f'{ticket_prefix}: {original_commit_message} [{ticket_prefix}](https://ian-kirkpatrick.atlassian.net/browse/{ticket_prefix})'
 
-    print(f'\n\n\t{new_commit_message}\n\n\n')
     f.write(new_commit_message)
